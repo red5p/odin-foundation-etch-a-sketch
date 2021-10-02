@@ -20,7 +20,7 @@ body {
 }
 
 .container {
-  border: rgb(255, 0, 0) 2px solid;
+  /* border: rgb(255, 0, 0) 2px solid; */
   width: 800px;
   height: 800px;
   display: grid;
@@ -31,14 +31,14 @@ body {
 }
 
 .cell {
-    background-color: rgb(150, 150, 150);
-    border: 1px solid rgb(0, 0, 0);
+    /* background-color: rgb(150, 150, 150); */
+    border: 1px solid rgb(230, 230, 230);
 }
 
 .colored {
-    background-color: chocolate;
+    /* background-color: black; */
 }
 
 #newGridBtn {
-    
+
 }

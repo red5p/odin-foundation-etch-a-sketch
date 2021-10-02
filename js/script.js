@@ -8,7 +8,16 @@ function initialzeGrid() {
 }
 
 function addColor() {
-    this.classList.add('colored');
+    this.style.backgroundColor = 'black';
+    // this.classList.add('colored');
+}
+
+function addRandomColor() {
+    let x = Math.random() * 256;
+    let y = Math.random() * 256;
+    let z = Math.random() * 256;
+    let randomColor = `rgb(${x}, ${y}, ${z})`;
+    this.style.backgroundColor = randomColor;
 }
 
 function makeNewGrid() {
@@ -28,21 +37,64 @@ function makeNewGrid() {
         container.appendChild(cell);
     }
     // Add event listeners to new cells
-    addCellEventListener();
+    switchDefaultColorMode();
 }
 
-function addCellEventListener() {
+function switchDefaultColorMode() {    
     let cells = container.querySelectorAll('.cell');
+    // remove old event listener
+    cells.forEach((cell) => {
+        cell.removeEventListener('mouseenter', addRandomColor);
+    });
+    // add new event listener
     cells.forEach((cell) => {
         cell.addEventListener('mouseenter', addColor);
     });
 }
 
+function switchRainbowColorMode() {
+    let cells = container.querySelectorAll('.cell');
+    // remove old event listener
+    cells.forEach((cell) => {
+        cell.removeEventListener('mouseenter', addColor);
+    });
+    // add new event listener
+    cells.forEach((cell) => {
+        cell.addEventListener('mouseenter', addRandomColor);
+    });
+}
+
+function switchEraserMode() {
+    let cells = container.querySelectorAll('.cell');
+    // remove old event listener
+    cells.forEach((cell) => {
+        cell.removeEventListener('mouseenter', addColor);
+        cell.removeEventListener('mouseenter', addRandomColor);
+    });
+    // add new event listener
+    cells.forEach((cell) => {
+        cell.addEventListener('mouseenter', eraseColor);
+    });
+}
+
+function eraseColor() {
+    this.style.backgroundColor = 'white';
+}
+
 
 let container = document.querySelector('.container');
-initialzeGrid();
 
-addCellEventListener();
+initialzeGrid();
+switchDefaultColorMode();
 
 let newGridBtn = document.querySelector('#newGridBtn');
 newGridBtn.addEventListener('click', makeNewGrid);
+
+let defaultBtn = document.querySelector('#defaultBtn');
+defaultBtn.addEventListener('click', switchDefaultColorMode);
+
+let rainbowBtn = document.querySelector('#rainbowBtn');
+rainbowBtn.addEventListener('click', switchRainbowColorMode);
+
+let eraserBtn = document.querySelector('#eraserBtn');
+eraserBtn.addEventListener('click', switchEraserMode);
