@@ -10,15 +10,21 @@
   <script src="js/script.js" defer></script>
 </head>
 <body>
-  <div id="buttons">
-    <input type="color" id="colorPicker">
-    <button id="colorBtn" class="btn">Color Mode</button>
-    <button id="rainbowBtn" class="btn">Rainbow Mode</button>
-    <button id="darkenBtn" class="btn">Darkening mode</button>
-    <button id="newGridBtn" class="btn">New Canvas</button>
-    <button id="eraserBtn"class="btn">Eraser</button>
-    <button id="clearBtn" class="btn">Clear</button>
+  <div id="content">
+    <div id="menu">
+      <input type="color" id="colorPicker">
+      <button id="colorBtn" class="btn">Color Mode</button>
+      <button id="rainbowBtn" class="btn">Rainbow Mode</button>
+      <button id="darkenBtn" class="btn">Darkening mode</button>
+      <button id="eraserBtn"class="btn">Eraser</button>
+      <button id="clearBtn" class="btn">Clear</button>
+
+      <input type="range" id="newGridSelector" value="8" min="8" step="8" max="96">
+      <p id="newGridNumber">8 x 8</p>
+
+      <button id="newGridBtn" class="btn">New Canvas</button>
+    </div>
+    <div class="container"></div>
   </div>
-  <div class="container"></div>
 </body>
 </html>
