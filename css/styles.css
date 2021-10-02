@@ -1,0 +1,44 @@
+/* html {
+    box-sizing: border-box;
+  }
+
+*, *:before, *:after {
+    box-sizing: inherit;
+} */
+
+/* :root {
+  --grid-rows: 16;
+  --grid-cols: 16;
+  --grid-size: 50px;
+} */
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  border: rgb(255, 0, 0) 2px solid;
+  width: 800px;
+  height: 800px;
+  display: grid;
+  grid-template-columns: repeat(16, 50px);
+  grid-auto-rows: repeat(16, 50px);
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.cell {
+    background-color: rgb(150, 150, 150);
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.colored {
+    background-color: chocolate;
+}
+
+#newGridBtn {
+    
+}
