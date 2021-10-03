@@ -1,108 +1,38 @@
-// initialize 16 * 16 grid
-function initialzeGrid() {
-    for (let i=0; i<16*16; i++) {
-        let cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.style.backgroundColor = 'rgb(255,255,255)';
-        cell.dataset.darken = 0;
-        grid.appendChild(cell);
-    }
-}
-
-function addColor() {
-    this.style.backgroundColor = colorPicker.value;
-}
-
-function addRandomColor() {
-    let r = Math.floor(Math.random() * 256);
-    let g = Math.floor(Math.random() * 256);
-    let b = Math.floor(Math.random() * 256);
-    this.style.backgroundColor = `rgb(${r},${g},${b})`;
-}
-
-function makeNewGrid() {
-    let size = Number(newGridSelector.value);
-    // Remove old cells
-    while (grid.lastElementChild) {
-        grid.removeChild(grid.lastElementChild);
-    }
-    // Change grid properties
-    grid.style.setProperty('grid-template-columns', `repeat(${size}, 1fr)`);
-    grid.style.setProperty('grid-auto-rows', `repeat(${size}, 1fr)`);
-    // Add new cells to the grid
+function initialzeGrid(size) {
     for (let i=0; i<size*size; i++) {
         let cell = document.createElement('div');
         cell.classList.add('cell');
         cell.style.backgroundColor = 'rgb(255,255,255)';
         cell.dataset.darken = 0;
+        cell.addEventListener('mouseenter', changeColor);
         grid.appendChild(cell);
     }
-    // Add event listeners to new cells
-    switchDefaultColorMode();
 }
 
-// default color mode
-function switchDefaultColorMode() {    
-    let cells = grid.querySelectorAll('.cell');
-    // remove old event listener
-    cells.forEach((cell) => {
-        cell.removeEventListener('mouseenter', addRandomColor);
-    });
-    // add new event listener
-    cells.forEach((cell) => {
-        cell.addEventListener('mouseenter', addColor);
-    });
+function makeNewGrid(size) {
+    removeCells();
+
+    grid.style.setProperty('grid-template-columns', `repeat(${size}, 1fr)`);
+    grid.style.setProperty('grid-auto-rows', `repeat(${size}, 1fr)`);
+
+    initialzeGrid(size);
 }
 
-function switchRainbowColorMode() {
-    let cells = grid.querySelectorAll('.cell');
-    // remove old event listener
-    cells.forEach((cell) => {
-        cell.removeEventListener('mouseenter', addColor);
-    });
-    // add new event listener
-    cells.forEach((cell) => {
-        cell.addEventListener('mouseenter', addRandomColor);
-    });
+function removeCells() {
+    while (grid.lastElementChild) {
+        grid.removeChild(grid.lastElementChild);
+    }
 }
 
-function switchEraserMode() {
-    let cells = grid.querySelectorAll('.cell');
-    // remove old event listener
-    cells.forEach((cell) => {
-        cell.removeEventListener('mouseenter', addColor);
-        cell.removeEventListener('mouseenter', addRandomColor);
-        cell.removeEventListener('mouseenter', addShade);
-    });
-    // add new event listener
-    cells.forEach((cell) => {
-        cell.addEventListener('mouseenter', eraseColor);
-    });
-}
-
-function switchShadeMode() {
-    let cells = grid.querySelectorAll('.cell');
-    // remove old event listener
-    cells.forEach((cell) => {
-        cell.removeEventListener('mouseenter', addColor);
-        cell.removeEventListener('mouseenter', addRandomColor);
-        cell.removeEventListener('mouseenter', eraseColor);
-    });
-    // add new event listener
-    cells.forEach((cell) => {
-        cell.addEventListener('mouseenter', addShade);
-    });
-}
-
-function addShade() {
-    let color = this.style.backgroundColor;
+function addShade(target) {
+    let color = target.style.backgroundColor;
     color = color.split('(')[1].split(')')[0];
     color = color.split(',');
     let r = Number(color[0]);
     let g = Number(color[1]);
     let b = Number(color[2]);
 
-    let darkenStep = Number(this.dataset.darken);
+    let darkenStep = Number(target.dataset.darken);
     if (darkenStep === 10) {
         return;
     }
@@ -114,12 +44,8 @@ function addShade() {
     b = (b < 0) ? 0 : b;
   
     darkenStep++;
-    this.dataset.darken = darkenStep;
-    this.style.backgroundColor = `rgb(${r},${g},${b})`;  
-}
-
-function eraseColor() {
-    this.style.backgroundColor = 'rgb(255,255,255)';
+    target.dataset.darken = darkenStep;
+    target.style.backgroundColor = `rgb(${r},${g},${b})`;  
 }
 
 function clearGrid() {
@@ -129,33 +55,62 @@ function clearGrid() {
     });
 }
 
+function changeColor() {
+    if (currentMode === COLOR_MODE) {
+        this.style.backgroundColor = colorPicker.value;
+    } else if (currentMode === RAINBOW_MODE) {
+        let r = Math.floor(Math.random() * 256);
+        let g = Math.floor(Math.random() * 256);
+        let b = Math.floor(Math.random() * 256);
+        this.style.backgroundColor = `rgb(${r},${g},${b})`;
+    } else if (currentMode === DARKEN_MODE) {
+        addShade(this);
+    } else {
+        this.style.backgroundColor = 'rgb(255,255,255)';
+    }
+}
 
-let grid = document.querySelector('#grid');
-initialzeGrid();
-switchDefaultColorMode();
+function changeMode(mode) {
+    currentMode = mode;
+}
 
-let colorPicker = document.querySelector('#colorPicker');
 
-let colorBtn = document.querySelector('#colorBtn');
-colorBtn.addEventListener('click', switchDefaultColorMode);
+const COLOR_MODE = 'color';
+const RAINBOW_MODE = 'rainbow';
+const DARKEN_MODE = 'darken';
+const ERASER_MODE = 'eraser';
 
-let rainbowBtn = document.querySelector('#rainbowBtn');
-rainbowBtn.addEventListener('click', switchRainbowColorMode);
+const INITIAL_SIZE = 16;
 
-let darkenBtn = document.querySelector('#darkenBtn');
-darkenBtn.addEventListener('click', switchShadeMode);
+let currentMode = COLOR_MODE;
+let currentSize = INITIAL_SIZE;
 
-let eraserBtn = document.querySelector('#eraserBtn');
-eraserBtn.addEventListener('click', switchEraserMode);
+const grid = document.querySelector('#grid');
+const colorPicker = document.querySelector('#colorPicker');
+const colorBtn = document.querySelector('#colorBtn');
+const rainbowBtn = document.querySelector('#rainbowBtn');
+const darkenBtn = document.querySelector('#darkenBtn');
+const eraserBtn = document.querySelector('#eraserBtn');
+const clearBtn = document.querySelector('#clearBtn');
+const newGridSelector = document.querySelector('#newGridSelector');
+const newGridNumber = document.querySelector('#newGridNumber');
+const newGridBtn = document.querySelector('#newGridBtn');
 
-let clearBtn = document.querySelector('#clearBtn');
-clearBtn.addEventListener('click', clearGrid);
+initialzeGrid(currentSize);
 
-let newGridSelector = document.querySelector('#newGridSelector');
-let newGridNumber = document.querySelector('#newGridNumber');
+colorBtn.onclick = () => changeMode('color');
+rainbowBtn.onclick = () => changeMode('rainbow');
+darkenBtn.onclick = () => changeMode('darken');
+eraserBtn.onclick = () => changeMode('eraser');
+clearBtn.onclick = () => clearGrid();
 newGridSelector.addEventListener('mousemove', function() {
-    newGridNumber.textContent = newGridSelector.value + ' x ' + newGridSelector.value;
-})
+    newGridNumber.textContent = newGridSelector.value + ' x ' +
+                                newGridSelector.value;
+    currentSize = Number(newGridSelector.value);
+});
+newGridBtn.onclick = () => makeNewGrid(currentSize);
 
-let newGridBtn = document.querySelector('#newGridBtn');
-newGridBtn.addEventListener('click', makeNewGrid);
+
+
+
+
