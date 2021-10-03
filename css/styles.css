@@ -3,7 +3,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(245, 245, 245);
+  background-color: #f5f5f5;
 }
 
 #content {
@@ -25,8 +25,6 @@ body {
 h1#header {
   color: #ff007b;
   font-size: 40px;
-  padding: 0;
-  margin: 0;
   font-family: 'Lobster', cursive;
 }
 
@@ -81,8 +79,7 @@ h1#header {
   color: #808080;
   background-color: white;
   border-radius: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 0;
   border: 3px solid #808080;
   transition: 200ms;
   box-shadow: 0 0 3px #808080;
@@ -124,11 +121,10 @@ h1#header {
 
 #footer {
   background-color: #ff007b;
-  height: 20px;
   align-self: stretch;
   color: #ffffff;
   text-align: center;
   font-family: 'Zilla Slab', serif;
-  padding: 5px 0;
+  padding: 10px 0;
   font-weight: bold;
 }

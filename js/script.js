@@ -42,6 +42,7 @@ function makeNewGrid() {
     switchDefaultColorMode();
 }
 
+// default color mode
 function switchDefaultColorMode() {    
     let cells = grid.querySelectorAll('.cell');
     // remove old event listener
@@ -131,10 +132,8 @@ function clearGrid() {
 
 
 let grid = document.querySelector('#grid');
-
 initialzeGrid();
 switchDefaultColorMode();
-
 
 let colorPicker = document.querySelector('#colorPicker');
 
