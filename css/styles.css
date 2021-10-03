@@ -1,17 +1,3 @@
-/* html {
-    box-sizing: border-box;
-  }
-
-*, *:before, *:after {
-    box-sizing: inherit;
-} */
-
-/* :root {
-  --grid-rows: 16;
-  --grid-cols: 16;
-  --grid-size: 50px;
-} */
-
 body {
   height: 100vh;
   display: flex;
@@ -29,15 +15,19 @@ body {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  width: 200px;
+  width: 250px;
+  text-align: center;
+  align-items: center;
 }
 
-.btn {
-  width: 80%;;
+#menu * {
+  width: 70%;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.container {
-  border: rgb(0,0,0) 5px solid;
+#grid {
+  border: #dfdfdf 5px solid;
   width: 800px;
   height: 800px;
   display: grid;
@@ -48,33 +38,72 @@ body {
 }
 
 .cell {
-  border: 1px solid rgb(245, 245, 245);
+  border: 1px solid #f5f5f5;
 }
-
-#colorFront {
-  background-color: #F5FF55;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  padding: 0px;
-}
-
 
 #colorPicker {
 	-webkit-appearance: none;
 	border: none;
-	width: 32px;
-	height: 32px;
+	width: 120px;
+	height: 120px;
+  border:none;
+  border-radius: 50%;
+  box-shadow: #a1a1a1 0px 5px 10px;
+  transition: 200ms;
+}
+
+#colorPicker:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 #colorPicker::-webkit-color-swatch-wrapper {
-	padding: 0;
+  padding: 2px;
 }
 
 #colorPicker::-webkit-color-swatch {
+  border-radius: 50%;
 	border: none;
 }
 
+.btn {
+  color: #808080;
+  background-color: white;
+  border-radius: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 3px solid #808080;
+  transition: 200ms;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #ff007b;
+  border: solid 3px #ff007b;
+  color: white;
+  transform: scale(1.1);
+}
+
 #newGridSelector {
-  
+  -webkit-appearance: none;
+  height: 7px;
+  border-radius: 5px;
+  background-image: linear-gradient(90deg, #ffffff, #ff007b);
+}
+
+#newGridSelector::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 40%;
+  background: #ffffff;
+  box-shadow: 0 0 3px 0 rgb(0, 0, 0);
+}
+
+#newGridSelector:hover {
+  cursor: pointer;
+}
+
+#newGridNumber {
+  color: #808080;
 }

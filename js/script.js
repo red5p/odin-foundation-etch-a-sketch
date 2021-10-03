@@ -5,7 +5,7 @@ function initialzeGrid() {
         cell.classList.add('cell');
         cell.style.backgroundColor = 'rgb(255,255,255)';
         cell.dataset.darken = 0;
-        container.appendChild(cell);
+        grid.appendChild(cell);
     }
 }
 
@@ -24,26 +24,26 @@ function makeNewGrid() {
     let size = Number(newGridSelector.value);
     let cellSize = 800/size;
     // Remove old cells
-    while (container.lastElementChild) {
-        container.removeChild(container.lastElementChild);
+    while (grid.lastElementChild) {
+        grid.removeChild(grid.lastElementChild);
     }
     // Change grid properties
-    container.style.setProperty('grid-template-columns', `repeat(${size}, ${cellSize}px)`);
-    container.style.setProperty('grid-auto-rows', `repeat(${size}, ${cellSize}px)`);
+    grid.style.setProperty('grid-template-columns', `repeat(${size}, ${cellSize}px)`);
+    grid.style.setProperty('grid-auto-rows', `repeat(${size}, ${cellSize}px)`);
     // Add new cells to the grid
     for (let i=0; i<size*size; i++) {
         let cell = document.createElement('div');
         cell.classList.add('cell');
         cell.style.backgroundColor = 'rgb(255,255,255)';
         cell.dataset.darken = 0;
-        container.appendChild(cell);
+        grid.appendChild(cell);
     }
     // Add event listeners to new cells
     switchDefaultColorMode();
 }
 
 function switchDefaultColorMode() {    
-    let cells = container.querySelectorAll('.cell');
+    let cells = grid.querySelectorAll('.cell');
     // remove old event listener
     cells.forEach((cell) => {
         cell.removeEventListener('mouseenter', addRandomColor);
@@ -55,7 +55,7 @@ function switchDefaultColorMode() {
 }
 
 function switchRainbowColorMode() {
-    let cells = container.querySelectorAll('.cell');
+    let cells = grid.querySelectorAll('.cell');
     // remove old event listener
     cells.forEach((cell) => {
         cell.removeEventListener('mouseenter', addColor);
@@ -67,7 +67,7 @@ function switchRainbowColorMode() {
 }
 
 function switchEraserMode() {
-    let cells = container.querySelectorAll('.cell');
+    let cells = grid.querySelectorAll('.cell');
     // remove old event listener
     cells.forEach((cell) => {
         cell.removeEventListener('mouseenter', addColor);
@@ -81,7 +81,7 @@ function switchEraserMode() {
 }
 
 function switchShadeMode() {
-    let cells = container.querySelectorAll('.cell');
+    let cells = grid.querySelectorAll('.cell');
     // remove old event listener
     cells.forEach((cell) => {
         cell.removeEventListener('mouseenter', addColor);
@@ -123,14 +123,14 @@ function eraseColor() {
 }
 
 function clearGrid() {
-    let cells = container.querySelectorAll('.cell');
+    let cells = grid.querySelectorAll('.cell');
     cells.forEach((cell) => {
         cell.style.backgroundColor = 'rgb(255,255,255)';
     });
 }
 
 
-let container = document.querySelector('.container');
+let grid = document.querySelector('#grid');
 
 initialzeGrid();
 switchDefaultColorMode();
