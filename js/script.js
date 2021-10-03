@@ -82,11 +82,13 @@ function activeButton(newMode) {
 function changeColor() {
     if (currentMode === COLOR_MODE) {
         this.style.backgroundColor = colorPicker.value;
+        this.dataset.darken = 0;
     } else if (currentMode === RAINBOW_MODE) {
         let r = Math.floor(Math.random() * 256);
         let g = Math.floor(Math.random() * 256);
         let b = Math.floor(Math.random() * 256);
         this.style.backgroundColor = `rgb(${r},${g},${b})`;
+        this.dataset.darken = 0;
     } else if (currentMode === DARKEN_MODE) {
         addShade(this);
     } else if (currentMode === ERASER_MODE){
