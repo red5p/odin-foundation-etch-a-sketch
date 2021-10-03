@@ -89,7 +89,8 @@ h1#header {
   box-shadow: 0 0 3px #808080;
 }
 
-.btn:hover {
+.btn:hover,
+.btn.active {
   cursor: pointer;
   background-color: var(--theme-pink);
   border: solid 3px var(--theme-pink);

@@ -11,10 +11,8 @@ function initialzeGrid(size) {
 
 function makeNewGrid(size) {
     removeCells();
-
     grid.style.setProperty('grid-template-columns', `repeat(${size}, 1fr)`);
     grid.style.setProperty('grid-auto-rows', `repeat(${size}, 1fr)`);
-
     initialzeGrid(size);
 }
 
@@ -65,13 +63,44 @@ function changeColor() {
         this.style.backgroundColor = `rgb(${r},${g},${b})`;
     } else if (currentMode === DARKEN_MODE) {
         addShade(this);
-    } else {
+    } else if (currentMode === ERASER_MODE){
         this.style.backgroundColor = 'rgb(255,255,255)';
+        this.dataset.darken = 0;
     }
 }
 
 function changeMode(mode) {
+    activeButton(mode);
     currentMode = mode;
+}
+
+function activeButton(newMode) {
+    switch (currentMode) {
+        case COLOR_MODE:
+            colorBtn.classList.remove('active');
+            break;
+        case RAINBOW_MODE:
+            rainbowBtn.classList.remove('active');
+            break;
+        case DARKEN_MODE:
+            darkenBtn.classList.remove('active');
+            break;
+        case ERASER_MODE:
+            eraserBtn.classList.remove('active');
+    }
+    switch (newMode) {
+        case COLOR_MODE:
+            colorBtn.classList.add('active');
+            break;
+        case RAINBOW_MODE:
+            rainbowBtn.classList.add('active');
+            break;
+        case DARKEN_MODE:
+            darkenBtn.classList.add('active');
+            break;
+        case ERASER_MODE:
+            eraserBtn.classList.add('active');
+    }
 }
 
 
