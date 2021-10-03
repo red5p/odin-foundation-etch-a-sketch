@@ -7,12 +7,16 @@
   <title>Etch-A-Sketch</title>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Zilla+Slab&display=swap');
+  </style>
   <script src="js/script.js" defer></script>
 </head>
 <body>
   <div id="content">
     <div id="menu">
-      <input type="color" id="colorPicker" value="#ff007b">
+      <h1 id="header">Etch-a-Sketch</h1>
+      <input type="color" id="colorPicker" value="#c0c0c0">
       <button id="colorBtn" class="btn">Color Mode</button>
       <button id="rainbowBtn" class="btn">Rainbow Mode</button>
       <button id="darkenBtn" class="btn">Darkening Mode</button>
@@ -26,5 +30,6 @@
     </div>
     <div id="grid"></div>
   </div>
+  <div id="footer">This is The Odin Project foundation project 'Etch-a-Sketch'</div>
 </body>
 </html>
