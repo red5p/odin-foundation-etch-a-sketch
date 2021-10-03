@@ -22,14 +22,13 @@ function addRandomColor() {
 
 function makeNewGrid() {
     let size = Number(newGridSelector.value);
-    let cellSize = 800/size;
     // Remove old cells
     while (grid.lastElementChild) {
         grid.removeChild(grid.lastElementChild);
     }
     // Change grid properties
-    grid.style.setProperty('grid-template-columns', `repeat(${size}, ${cellSize}px)`);
-    grid.style.setProperty('grid-auto-rows', `repeat(${size}, ${cellSize}px)`);
+    grid.style.setProperty('grid-template-columns', `repeat(${size}, 1fr)`);
+    grid.style.setProperty('grid-auto-rows', `repeat(${size}, 1fr)`);
     // Add new cells to the grid
     for (let i=0; i<size*size; i++) {
         let cell = document.createElement('div');

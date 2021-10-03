@@ -1,3 +1,7 @@
+:root {
+  --theme-pink: #ff007b;
+}
+
 body {
   height: 100vh;
   display: flex;
@@ -23,7 +27,7 @@ body {
 }
 
 h1#header {
-  color: #ff007b;
+  color: var(--theme-pink);
   font-size: 40px;
   font-family: 'Lobster', cursive;
 }
@@ -40,8 +44,8 @@ h1#header {
   width: 800px;
   height: 800px;
   display: grid;
-  grid-template-columns: repeat(16, 50px);
-  grid-auto-rows: repeat(16, 50px);
+  grid-template-columns: repeat(16, 1fr);
+  grid-auto-rows: repeat(16, 1fr);
   justify-items: stretch;
   align-items: stretch;
 }
@@ -87,11 +91,11 @@ h1#header {
 
 .btn:hover {
   cursor: pointer;
-  background-color: #ff007b;
-  border: solid 3px #ff007b;
+  background-color: var(--theme-pink);
+  border: solid 3px var(--theme-pink);
   color: white;
   transform: scale(1.1);
-  box-shadow: 0 0 10px #ff007b;
+  box-shadow: 0 0 10px var(--theme-pink);
   text-shadow: 0 0 10px white;
 }
 
@@ -99,7 +103,7 @@ h1#header {
   -webkit-appearance: none;
   height: 7px;
   border-radius: 5px;
-  background-image: linear-gradient(90deg, #ffffff, #ff007b);
+  background-image: linear-gradient(90deg, #ffffff, var(--theme-pink));
 }
 
 #newGridSelector::-webkit-slider-thumb {
@@ -120,7 +124,7 @@ h1#header {
 }
 
 #footer {
-  background-color: #ff007b;
+  background-color: var(--theme-pink);
   align-self: stretch;
   color: #ffffff;
   text-align: center;
