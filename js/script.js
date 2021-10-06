@@ -35,8 +35,10 @@ newGridBtn.onclick = () => makeNewGrid(currentSize);
 function initialzeGrid(size) {
     grid.style.setProperty('grid-template-columns', `repeat(${size}, 1fr)`);
     grid.style.setProperty('grid-auto-rows', `repeat(${size}, 1fr)`);
+
+    // add div's to the grid
     for (let i=0; i<size*size; i++) {
-        let cell = document.createElement('div');
+        const cell = document.createElement('div');
         cell.classList.add('cell');
         cell.style.backgroundColor = 'rgb(255,255,255)';
         cell.dataset.darken = 0;
@@ -50,6 +52,7 @@ function changeMode(mode) {
     currentMode = mode;
 }
 
+// remove active style from previous button and add active style to the new button
 function activeButton(newMode) {
     switch (currentMode) {
         case COLOR_MODE:
@@ -79,14 +82,15 @@ function activeButton(newMode) {
     }
 }
 
+// change background-color of the div, according to the mode the user selected
 function changeColor() {
     if (currentMode === COLOR_MODE) {
         this.style.backgroundColor = colorPicker.value;
         this.dataset.darken = 0;
     } else if (currentMode === RAINBOW_MODE) {
-        let r = Math.floor(Math.random() * 256);
-        let g = Math.floor(Math.random() * 256);
-        let b = Math.floor(Math.random() * 256);
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
         this.style.backgroundColor = `rgb(${r},${g},${b})`;
         this.dataset.darken = 0;
     } else if (currentMode === DARKEN_MODE) {
@@ -97,7 +101,9 @@ function changeColor() {
     }
 }
 
+// calculate the next darkened color
 function addShade(target) {
+    // extract r, g, b from string "rgb(r,g,b)"
     let color = target.style.backgroundColor;
     color = color.split('(')[1].split(')')[0];
     color = color.split(',');
@@ -109,11 +115,13 @@ function addShade(target) {
     if (darkenStep === 10) {
         return;
     }
+
+    // calculate new color
     r = r - Math.ceil(r / (10 - darkenStep));
-    r = (r < 0) ? 0 : r;
     g = g - Math.ceil(g / (10 - darkenStep));
-    g = (g < 0) ? 0: g;
     b = b - Math.ceil(b / (10 - darkenStep));
+    r = (r < 0) ? 0 : r;
+    g = (g < 0) ? 0 : g;
     b = (b < 0) ? 0 : b;
   
     darkenStep++;
@@ -132,8 +140,9 @@ function removeCells() {
     }
 }
 
+// erase all cells
 function clearGrid() {
-    let cells = grid.querySelectorAll('.cell');
+    const cells = grid.querySelectorAll('.cell');
     cells.forEach((cell) => {
         cell.style.backgroundColor = 'rgb(255,255,255)';
     });
